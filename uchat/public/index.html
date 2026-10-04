@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UCHAT – Talk to verified adults worldwide</title>
+  <meta name="description" content="UCHAT: random video chat for verified adults. Filter by country, language, age and gender.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">U<span>CHAT</span></div>
+    <div class="online"><span class="dot"></span><span id="onlineCount">–</span> online</div>
+  </header>
+
+  <!-- Setup screen -->
+  <main id="setup" class="card">
+    <h1>Meet new people, your way</h1>
+    <p class="sub">18+ only. Be respectful. Calls are moderated and you can report anyone in one tap.</p>
+
+    <form id="setupForm">
+      <fieldset>
+        <legend>About you</legend>
+        <label>Date of birth <input type="date" id="dob" required></label>
+        <label>Gender
+          <select id="gender" required>
+            <option value="">Select…</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label>Country <select id="country" class="countryList" required></select></label>
+        <label>Language you speak <select id="language" class="languageList" required></select></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Who you want to meet</legend>
+        <div class="row">
+          <label>Age from <input type="number" id="ageMin" min="18" max="99" value="18"></label>
+          <label>to <input type="number" id="ageMax" min="18" max="99" value="99"></label>
+        </div>
+        <label>Country <select id="prefCountry" class="countryList anyOption"></select></label>
+        <label>Language <select id="prefLanguage" class="languageList anyOption"></select></label>
+        <div class="genders">
+          <span>Gender <em class="badge">PLUS</em></span>
+          <label class="chk"><input type="checkbox" name="prefGender" value="male"> Male</label>
+          <label class="chk"><input type="checkbox" name="prefGender" value="female"> Female</label>
+          <label class="chk"><input type="checkbox" name="prefGender" value="other"> Other</label>
+        </div>
+      </fieldset>
+
+      <label class="chk terms">
+        <input type="checkbox" id="adult" required>
+        I confirm I am 18 or older and agree to the <a href="#" id="termsLink">Terms &amp; Community Guidelines</a>.
+      </label>
+
+      <p id="error" class="error" hidden></p>
+      <button type="submit" class="primary">Start chatting</button>
+    </form>
+  </main>
+
+  <!-- Chat screen -->
+  <main id="chat" hidden>
+    <section class="videos">
+      <div class="video remote">
+        <video id="remoteVideo" autoplay playsinline></video>
+        <div id="status" class="status">Looking for someone…</div>
+        <div id="partnerInfo" class="partnerInfo" hidden></div>
+      </div>
+      <div class="video local">
+        <video id="localVideo" autoplay playsinline muted></video>
+      </div>
+    </section>
+
+    <section class="side">
+      <div id="messages" class="messages"></div>
+      <form id="chatForm" class="chatForm">
+        <input id="chatInput" maxlength="500" placeholder="Type a message…" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+      <div class="controls">
+        <button id="nextBtn" class="primary">Next ▸</button>
+        <button id="reportBtn" class="danger">Report</button>
+        <button id="stopBtn">Stop</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="paywall">
+    <h2>Unlock UCHAT Plus</h2>
+    <p>Choose who you meet by gender, pick multiple countries and languages, skip ads and get priority matching.</p>
+    <ul class="plans">
+      <li><strong>$4.99</strong> / week</li>
+      <li class="popular"><strong>$12.99</strong> / month <em>Most popular</em></li>
+      <li><strong>$29.99</strong> / 3 months</li>
+    </ul>
+    <p class="small">Payments coming soon (Stripe). For local testing run <code>npm run dev</code>.</p>
+    <button id="closePaywall">Continue free</button>
+  </dialog>
+
+  <dialog id="terms">
+    <h2>Community Guidelines</h2>
+    <ul>
+      <li>You must be 18 or older. Minors are banned immediately.</li>
+      <li>No nudity, sexual content, harassment, hate or violence.</li>
+      <li>Do not record or share others without consent.</li>
+      <li>Reported users are reviewed and may be banned permanently.</li>
+    </ul>
+    <button id="closeTerms">Close</button>
+  </dialog>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
