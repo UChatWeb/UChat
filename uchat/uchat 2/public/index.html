@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UCHAT – Random Video Chat with Country, Language &amp; Gender Filters</title>
+  <meta name="description" content="UCHAT is the random video chat for verified adults. Talk to strangers worldwide and choose who you meet by country, language, age and gender.">
+  <meta property="og:title" content="UCHAT – Talk to the world, on your terms">
+  <meta property="og:description" content="Random video chat with real filters. Verified 18+ only.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="/">U<span>CHAT</span></a>
+    <div class="online"><span class="dot"></span><b id="onlineCount">–</b>&nbsp;online now</div>
+  </header>
+
+  <!-- ============ LANDING / SETUP ============ -->
+  <main id="setup">
+    <section class="hero">
+      <h1>Talk to strangers.<br><span>On your terms.</span></h1>
+      <p>Random video chat with real filters — pick the country, language, age and gender of who you meet. Verified adults only.</p>
+    </section>
+
+    <form id="setupForm" class="panel">
+      <div class="block">
+        <div class="label">I am</div>
+        <div class="pills">
+          <label><input type="radio" name="myGender" value="male" required><span>♂ Male</span></label>
+          <label><input type="radio" name="myGender" value="female"><span>♀ Female</span></label>
+          <label><input type="radio" name="myGender" value="other"><span>⚧ Other</span></label>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="label">I want to meet</div>
+        <div class="pills">
+          <label><input type="radio" name="prefGender" value="" checked><span>🌍 Everyone</span></label>
+          <label><input type="radio" name="prefGender" value="male"><span>♂ Males <em class="badge">PLUS</em></span></label>
+          <label><input type="radio" name="prefGender" value="female"><span>♀ Females <em class="badge">PLUS</em></span></label>
+        </div>
+      </div>
+
+      <div class="grid">
+        <label>Your date of birth <input type="date" id="dob" required></label>
+        <label>Your country <select id="country" class="countryList" required></select></label>
+        <label>Language you speak <select id="language" class="languageList" required></select></label>
+        <label>Their country <select id="prefCountry" class="countryList anyOption"></select></label>
+        <label>Their language <select id="prefLanguage" class="languageList anyOption"></select></label>
+        <div class="ages">
+          <label>Age from <input type="number" id="ageMin" min="18" max="99" value="18"></label>
+          <label>to <input type="number" id="ageMax" min="18" max="99" value="99"></label>
+        </div>
+      </div>
+
+      <label class="terms">
+        <input type="checkbox" id="adult" required>
+        <span>I'm 18+ and agree to the <a href="#" id="termsLink">Terms &amp; Community Guidelines</a>.</span>
+      </label>
+
+      <p id="error" class="error" hidden></p>
+      <button type="submit" class="start">▶ Start Video Chat</button>
+      <p class="hint">Camera and microphone required. Press <kbd>Esc</kbd> anytime to skip.</p>
+    </form>
+
+    <section class="features">
+      <div><b>🎯 Real filters</b><p>Country, language and age for free. Gender with Plus.</p></div>
+      <div><b>⚡ Instant matches</b><p>Hit Next and meet someone new in seconds.</p></div>
+      <div><b>🛡️ Verified 18+</b><p>Adults only, moderated, one-tap reporting.</p></div>
+      <div><b>🗣️ Language exchange</b><p>Practice any language with native speakers.</p></div>
+    </section>
+
+    <footer>
+      <a href="#" class="openTerms">Terms</a> · <a href="#" class="openTerms">Guidelines</a> · <a href="mailto:support@uchat.example">Contact</a>
+      <p>© UCHAT. You must be 18+ to use this site.</p>
+    </footer>
+  </main>
+
+  <!-- ============ CHAT ============ -->
+  <main id="chat" hidden>
+    <section class="videos">
+      <div class="video remote">
+        <video id="remoteVideo" autoplay playsinline></video>
+        <div id="status" class="status">Looking for someone…</div>
+        <div id="partnerInfo" class="partnerInfo" hidden></div>
+        <span class="tag">Stranger</span>
+      </div>
+      <div class="video local">
+        <video id="localVideo" autoplay playsinline muted></video>
+        <span class="tag">You</span>
+      </div>
+    </section>
+
+    <section class="side">
+      <div id="messages" class="messages"></div>
+      <div class="bottom">
+        <button id="nextBtn" class="next">Next<small>Esc</small></button>
+        <form id="chatForm" class="chatForm">
+          <input id="chatInput" maxlength="500" placeholder="Type a message and press Enter…" autocomplete="off">
+          <button type="submit">Send</button>
+        </form>
+      </div>
+      <div class="controls">
+        <button id="stopBtn">■ Stop</button>
+        <button id="reportBtn" class="danger">⚑ Report</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="paywall">
+    <h2>Unlock UCHAT <span class="plus">Plus</span></h2>
+    <p>Choose who you meet by gender, pick several countries and languages, skip ads and get priority matching.</p>
+    <ul class="plans">
+      <li><strong>$4.99</strong> / week</li>
+      <li class="popular"><strong>$12.99</strong> / month <em>Most popular</em></li>
+      <li><strong>$29.99</strong> / 3 months <em>Best value</em></li>
+    </ul>
+    <p class="small">Payments coming soon. For local testing run <code>npm run dev</code>.</p>
+    <button id="closePaywall">Continue with Everyone</button>
+  </dialog>
+
+  <dialog id="terms">
+    <h2>Community Guidelines</h2>
+    <ul>
+      <li>You must be 18 or older. Minors are banned immediately.</li>
+      <li>No nudity, sexual content, harassment, hate or violence.</li>
+      <li>Do not record or share others without consent.</li>
+      <li>Reported users are reviewed and may be banned permanently.</li>
+    </ul>
+    <button id="closeTerms">Close</button>
+  </dialog>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
